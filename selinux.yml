@@ -1,18 +1,18 @@
 ---
 - name: Configure SELinux 
-  hosts: production_servers
+  hosts: "{{ ansible_limit }}"
   become: true
 
   tasks:
-    - name: Include RHEL System Role - SELinux
+    - name: "[INCLUDE ROLE] | RHEL System Role - SELinux"
       include_role:
         name: rhel-system-roles.selinux
-      notify:             
-        - restart server
+  #     notify:             
+  #       - restart server
       
-  handlers:
-    - name: restart server
-      ansible.builtin.reboot:
-        msg: "Reboot initiated by Ansible after Linux kernel update"
-        reboot_timeout: 3600
-        test_command: date
+  # handlers:
+  #   - name: restart server
+  #     ansible.builtin.reboot:
+  #       msg: "Reboot initiated by Ansible after Linux kernel update"
+  #       reboot_timeout: 3600
+  #       test_command: date
