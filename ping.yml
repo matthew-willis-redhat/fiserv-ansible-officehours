@@ -1,0 +1,8 @@
+---
+- name: Ping Nodes
+  hosts: "{{ ansible_limit }}"
+  gather_facts: true
+
+  tasks:
+    - name: Ping all the nodes!
+      ansible.builtin.ping:
