@@ -1,5 +1,7 @@
-A short demo playbook that demonstrates basic usage of RHEL system roles, specifically the SELinux role
+A short demo playbook that demonstrates basic usage of RHEL system roles
 
 ---
 
-[SELinux Role](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/selinux/)
+[SELinux role](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/selinux/)
+
+[Storage role](https://console.redhat.com/ansible/automation-hub/repo/published/redhat/rhel_system_roles/content/role/storage/)
