@@ -12,7 +12,7 @@
     storage_pools:
       - name: vg_extended_storage
         disks:
-          - /dev/sdc1
+          - "/dev/sdc"
         volumes:
           - name: lv_es_small
             size: 512
