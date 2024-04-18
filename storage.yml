@@ -9,15 +9,15 @@
         type: disk
         disks:
           - "/dev/sdc"
-    storage_pools:
-      - name: vg_extended_storage
-        disks:
-          - "/dev/sdc"
-        volumes:
-          - name: lv_es_small
-            size: 512
-            fs_type: ext4
-            mount_point: /mnt/es_small_data
+    # storage_pools:
+    #   - name: vg_extended_storage
+    #     disks:
+    #       - "/dev/sdc"
+    #     volumes:
+    #       - name: lv_es_small
+    #         size: 512
+    #         fs_type: ext4
+    #         mount_point: /mnt/es_small_data
 
   tasks:
     - name: "[INCLUDE ROLE] | RHEL System Role - SELinux"
