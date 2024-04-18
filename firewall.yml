@@ -8,7 +8,7 @@
       - port: 8081/tcp
         service: customhttp
         description: Custom HTTP service for demo, no listener on 8081
-        state: present
+        state: enabled
         permanent: true
 
   tasks:
