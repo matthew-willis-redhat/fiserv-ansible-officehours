@@ -1,7 +1,7 @@
 
 # Ansible Office Hours: Best Practices
 
-Demo playbooks that demonstrates basic usage of RHEL system roles
+Demo playbooks that demonstrate basic usage of RHEL system roles
 
 ---
 
