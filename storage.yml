@@ -9,6 +9,10 @@
         type: disk
         disks:
           - "/dev/sdc"
+        size: "5 GiB"
+        fs_type: ext4
+        state: present
+
     # storage_pools:
     #   - name: vg_extended_storage
     #     disks:
