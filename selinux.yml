@@ -10,7 +10,7 @@
   tasks:
     - name: "[INCLUDE ROLE] | RHEL System Role - SELinux"
       include_role:
-        name: rhel-system-roles.selinux
+        name: redhat.rhel_system_roles.selinux
   #     notify:             
   #       - restart server
       

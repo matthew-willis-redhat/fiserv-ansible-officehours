@@ -1,0 +1,17 @@
+---
+- name: Configure Firewall
+  hosts: "{{ ansible_limit }}"
+  become: true
+
+  vars:
+    firewall:
+      - port: 8081/tcp
+        service: customhttp
+        description: Custom HTTP service for demo, no listener on 8081
+        state: present
+        permanent: true
+
+  tasks:
+    - name: "[INCLUDE ROLE] | RHEL System Role - Firewall"
+      include_role:
+        name: redhat.rhel_system_roles.firewall
