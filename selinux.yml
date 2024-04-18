@@ -3,6 +3,10 @@
   hosts: "{{ ansible_limit }}"
   become: true
 
+  vars:
+    selinux_state: permissive
+    selinux_reboot_required: true
+
   tasks:
     - name: "[INCLUDE ROLE] | RHEL System Role - SELinux"
       include_role:
