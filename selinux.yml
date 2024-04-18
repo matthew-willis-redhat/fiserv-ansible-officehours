@@ -8,15 +8,7 @@
     selinux_reboot_required: true
 
   tasks:
-    - name: "[INCLUDE ROLE] | RHEL System Role - SELinux"
+    - name: "[INCLUDE ROLE] RHEL System Role - SELinux | Configure SELinux"
       include_role:
         name: redhat.rhel_system_roles.selinux
-  #     notify:             
-  #       - restart server
-      
-  # handlers:
-  #   - name: restart server
-  #     ansible.builtin.reboot:
-  #       msg: "Reboot initiated by Ansible after Linux kernel update"
-  #       reboot_timeout: 3600
-  #       test_command: date
+

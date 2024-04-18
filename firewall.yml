@@ -12,6 +12,6 @@
         permanent: true
 
   tasks:
-    - name: "[INCLUDE ROLE] | RHEL System Role - Firewall"
+    - name: "[INCLUDE ROLE] RHEL System Role - Firewall | Configure firewalld"
       include_role:
         name: redhat.rhel_system_roles.firewall
