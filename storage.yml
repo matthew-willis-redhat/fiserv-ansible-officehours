@@ -1,0 +1,65 @@
+---
+- name: Configure Storage
+  hosts: "{{ ansible_limit }}"
+  become: true
+
+  vars:
+    storage_volumes:
+      - name: demo
+        type: disk
+        disks:
+          - "/dev/sdc"
+    storage_pools:
+      - name: vg_extended_storage
+        disks:
+          - /dev/sdc1
+        volumes:
+          - name: lv_es_small
+            size: 512
+            fs_type: ext4
+            mount_point: /mnt/es_small_data
+
+  tasks:
+    - name: "[INCLUDE ROLE] | RHEL System Role - SELinux"
+      include_role:
+        name: rhel-system-roles.storage
+
+
+
+# ---
+# - name: Configure Storage
+#   community.general.parted:
+#     device: /dev/sdc
+#     number: 1
+#     part_end: 800MiB
+#     fs_type: xfs
+#     state: present
+
+# - name: Create vg_database
+#   community.general.lvg:
+#     vg: vg_database
+#     pvs: /dev/sdc1
+
+# - name: Create lv_mysql logical volume
+#   community.general.lvol:
+#     vg: vg_database
+#     lv: lv_mysql
+#     size: 512
+
+# - name: Format lv_mysql logical volume with XFS filesystem
+#   community.general.filesystem:
+#     fstype: xfs
+#     dev: /dev/vg_database/lv_mysql
+
+# - name: Create /mnt/mysql directory for lv_mysql mount
+#   ansible.builtin.file:
+#     path: /mnt/mysql
+#     state: directory
+#     mode: 0755
+
+# - name: Mount lv_mysql to /mnt/mysql
+#   ansible.posix.mount:
+#     path: /mnt/mysql
+#     src: /dev/vg_database/lv_mysql
+#     fstype: xfs
+#     state: present
