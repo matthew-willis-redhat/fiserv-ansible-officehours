@@ -4,26 +4,44 @@
   become: true
 
   vars:
-    storage_volumes:
-      - name: demo
-        type: disk
-        disks:
-          - "/dev/sdc"
-        size: "5 GiB"
-        fs_type: ext4
+    storage_pools:
+      - name: demo_vg
+        type: lvm
         state: present
+        disks:
+          - sdc
+        volumes:
+          - name: demo_lv
+            size: "{{ volsize|default('5g') }}"
+            fs_type: ext4
 
-    # storage_pools:
-    #   - name: vg_extended_storage
-    #     disks:
-    #       - "/dev/sdc"
-    #     volumes:
-    #       - name: lv_es_small
-    #         size: 512
-    #         fs_type: ext4
-    #         mount_point: /mnt/es_small_data
+  pre_tasks:
+
+    - name: Check size of sdc
+      debug:
+        var: ansible_facts['devices']['sdc']['size']
 
   tasks:
-    - name: "[INCLUDE ROLE] | RHEL System Role - SELinux"
-      include_role:
-        name: redhat.rhel_system_roles.storage
+
+    - name: Debug sdd
+      debug:
+        msg: "Device /dev/sdd does not exist"
+      when: ansible_facts['devices']['sdd'] is undefined
+
+    - name: "[INCLUDE ROLE] | Create new volumes"
+      block:
+        - name: Create new volumes if space allows
+          ansible.builtin.include_role:
+            name: redhat.rhel_system_roles.storage
+
+      rescue:
+
+        - name: Send a message
+          ansible.builtin.debug:
+            msg: "Initial attempt failed creating with smaller sizes"
+
+        - name: "[INCLUDE ROLE] | Create smaller volume group if space allows"
+          ansible.builtin.include_role:
+            name: redhat.rhel_system_roles.storage
+          vars:
+            volsize: 2g

@@ -1,0 +1,59 @@
+---
+- name: EE Build for RHEL8 Minimal
+  hosts: localhost
+  gather_facts: false
+
+  collections:
+    - infra.ee_utilities
+
+  vars_files:
+    - vars/rh-token.yml
+
+  vars:
+    ee_ah_host: registry.redhat.com
+    ee_base_image: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel8:latest
+    ee_builder_dir: "."
+    ee_builder_dir_clean: false
+    ee_image_push: true
+    ee_pull_collections_from_hub: false
+    ee_registry_dest: quay.io/mattwillis/ee-minimal-rhel8-mod
+    ee_update_base_images: true
+    ee_verbosity: 3
+    ee_list:
+      - name: ee-minimal-rhel8-mod
+        alt_name: RHEL 8 Minimal Mod
+        images:
+          base_image:
+            name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel8:latest
+        dependencies:
+          galaxy:
+            collections:
+              # - ansible.posix
+              # - ansible.netcommon
+              # - ansible.utils
+              # - community.crypto
+              - community.general
+              # - fedora.linux_system_roles
+          system: []
+            # - "rhel-system-roles"
+          python: [] 
+        # build_files:
+        #   - src: files/hashicorp.repo
+        #     dest: files
+        # build_steps:
+        #   append_base:
+        #       - RUN microdnf install linux-system-roles
+        #     - COPY _build/files/hashicorp.repo /etc/yum.repos.d/hashicorp.repo
+        #     - RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc
+        #     - RUN rpm --install https://packages.microsoft.com/config/rhel/9.0/packages-microsoft-prod.rpm
+        #   append_galaxy:
+        #     - RUN pip install -r /usr/share/ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt --user
+        #     - RUN pip install oauthlib --upgrade --user
+            # - RUN pip install --upgrade python3-cryptography >=42.0.4
+
+          # prepend_final:
+          #   - RUN pip install cryptography --upgrade --user
+          #   - RUN ssh-keygen -t rsa -b 4096 -f /runner/.ssh/id_rsa_rhpds -q -C "workgroup-labs" -N ""
+
+  roles:
+    - infra.ee_utilities.ee_builder
